@@ -28,7 +28,7 @@ abstract class Step extends HttpServlet
     val re = new Regex("^%s$" format path.replaceAll(pattern, "(.*?)"))
 
     def apply(realPath: String): Option[Params] =
-      re findFirstMatchIn realPath map (x => Map(names zip x.subgroups : _*))
+      re findFirstMatchIn realPath map (x => Map(names map (_ substring 1) zip x.subgroups : _*))
 
     override def toString():String = path
   }
